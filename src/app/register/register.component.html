@@ -1,0 +1,347 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+
+                <div class="container">
+
+                    <div class="form-group row">
+
+                        <div class="col form-check"></div>
+
+                        <div class="col form-check">
+                            <input type="radio" name="type" id="agriculturist" value="agriculturist" [(ngModel)]="type" (change)="changeForm($event)" class="form-check-input">
+                            <label for="agriculturist" class="form-check-label">Poljoprivrednik </label>
+                        </div>
+
+                        <div class="col form-check">
+                            <input type="radio" name="type" id="enterprise" value="enterprise" [(ngModel)]="type" (change)="changeForm($event)" class="form-check-input">
+                            <label for="enterprise" class="form-check-label">Preduzeće</label>
+                        </div>
+
+                        <div class="col form-check"></div>
+
+                    </div>
+
+                </div>
+
+                <div *ngIf="type == 'agriculturist'; then agriculturist else enterprise"></div>
+
+                <div>
+
+                    <ng-template #agriculturist>
+                        <form [formGroup]="agriculturistForm" (submit)="register()">
+
+                            <div class="form-group">
+                                <label for="firstName"><b>Ime:</b></label>
+                                <input type='text' formControlName="firstName" id='firstName' required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (agriculturistSubmitted || agriculturistForm.controls.firstName.dirty || agriculturistForm.controls.firstName.touched) && agriculturistForm.controls.firstName.errors }">
+
+                                <div *ngIf="(agriculturistSubmitted || agriculturistForm.controls.firstName.dirty || agriculturistForm.controls.firstName.touched) && agriculturistForm.controls.firstName.errors" class="invalid-feedback">
+                                    <div *ngIf="agriculturistForm.controls.firstName.errors.required" class="text-danger">
+                                        <label>Polje ne može biti prazno!</label>
+                                    </div>
+                                    <div *ngIf="agriculturistSubmitted && agriculturistForm.controls.firstName.errors.minlength" class="text-danger">
+                                        <label>Ime nije ispravno!</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName"><b>Prezime:</b></label>
+                                <input type='text' formControlName="lastName" id='lastName' required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (agriculturistSubmitted || agriculturistForm.controls.lastName.dirty || agriculturistForm.controls.lastName.touched) && agriculturistForm.controls.lastName.errors }">
+
+                                <div *ngIf="(agriculturistSubmitted || agriculturistForm.controls.lastName.dirty || agriculturistForm.controls.lastName.touched) && agriculturistForm.controls.lastName.errors" class="invalid-feedback">
+                                    <div *ngIf="agriculturistForm.controls.lastName.errors.required" class="text-danger">
+                                        <label>Polje ne može biti prazno!</label>
+                                    </div>
+                                    <div *ngIf="agriculturistSubmitted && agriculturistForm.controls.lastName.errors.minlength" class="text-danger">
+                                        <label>Prezime nije ispravno!</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="username"><b>Korisničko ime:</b></label>
+                                <input type="text" formControlName="username" id="username" required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (agriculturistSubmitted || agriculturistForm.controls.username.dirty || agriculturistForm.controls.username.touched) && agriculturistForm.controls.username.errors }">
+
+                                <div *ngIf="(agriculturistSubmitted || agriculturistForm.controls.username.dirty || agriculturistForm.controls.username.touched) && agriculturistForm.controls.username.errors" class="invalid-feedback">
+                                    <div *ngIf="agriculturistForm.controls.username.errors.required" class="text-danger">
+                                        <label>Polje ne može biti prazno!</label>
+                                    </div>
+                                    <div *ngIf="agriculturistSubmitted && agriculturistForm.controls.username.errors.minlength" class="text-danger">
+                                        <label>Korisničko ime nije ispravno!</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password"><b>Lozinka:</b></label>
+                                <input type="password" formControlName="password" id="password" required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (agriculturistSubmitted || agriculturistForm.controls.password.dirty || agriculturistForm.controls.password.touched) && agriculturistForm.controls.password.errors }">
+
+                                <div *ngIf="(agriculturistSubmitted || agriculturistForm.controls.password.dirty || agriculturistForm.controls.password.touched) && agriculturistForm.controls.password.errors" class="invalid-feedback">
+                                    <div *ngIf="agriculturistForm.controls.password.errors.required" class="text-danger">
+                                        <label>Polje ne može biti prazno!</label>
+                                    </div>
+                                    <table>
+                                        <tr *ngIf="agriculturistForm.controls.password.errors.minlength">
+                                            <td>
+                                                <label class="text-danger">Lozinka treba da ima najmanje 7 karatera!</label>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="agriculturistForm.controls.password.errors.containsNumber">
+                                            <td>
+                                                <label class="text-danger">Lozinka treba da sadrži bar jedan broj!</label>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="agriculturistForm.controls.password.errors.containsCapitalCase">
+                                            <td>
+                                                <label class="text-danger">Lozinka treba da sadrži bar jedno veliko slovo!</label>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="agriculturistForm.controls.password.errors.containsSpecialCharacters">
+                                            <td>
+                                                <label class="text-danger">Lozinka treba da sadrži bar jedan karakter!</label>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="agriculturistForm.controls.password.errors.startWithLetter">
+                                            <td>
+                                                <label class="text-danger">Lozinka treba da počinje slovom!</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="repeat"><b>Ponovite lozinku:</b></label>
+                                <input type="password" formControlName="repeat" id="repeat" required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (agriculturistForm.controls.password.dirty || agriculturistForm.controls.password.touched) && !agriculturistForm.controls.password.errors &&
+                                                                (agriculturistSubmitted || agriculturistForm.controls.repeat.dirty || agriculturistForm.controls.repeat.touched) && agriculturistForm.controls.repeat.errors }">
+
+                                <div *ngIf="(agriculturistForm.controls.password.dirty || agriculturistForm.controls.password.touched) && !agriculturistForm.controls.password.errors &&
+                                        (agriculturistSubmitted || agriculturistForm.controls.repeat.dirty || agriculturistForm.controls.repeat.touched) && agriculturistForm.controls.repeat.errors" class="invalid-feedback">
+                                    <label class="text-danger">Unete lozinke se ne poklapaju!</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="date"><b>Datum rođenja:</b></label>
+                                <input type="date" formControlName="date" id="date" required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (agriculturistSubmitted || agriculturistForm.controls.date.dirty || agriculturistForm.controls.date.touched) && agriculturistForm.controls.date.errors }">
+
+                                <div *ngIf="(agriculturistSubmitted || agriculturistForm.controls.date.dirty || agriculturistForm.controls.date.touched) && agriculturistForm.controls.date.errors" class="invalid-feedback">
+                                    <label class="text-danger">Polje ne može biti prazno!</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="place"><b>Mesto rođenja:</b></label>
+                                <input type="text" formControlName="place" id="place" required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (agriculturistSubmitted || agriculturistForm.controls.place.dirty || agriculturistForm.controls.place.touched) && agriculturistForm.controls.place.errors }">
+
+                                <div *ngIf="(agriculturistSubmitted || agriculturistForm.controls.place.dirty || agriculturistForm.controls.place.touched) && agriculturistForm.controls.place.errors" class="invalid-feedback">
+                                    <div *ngIf="agriculturistForm.controls.place.errors.required" class="text-danger">
+                                        <label>Polje ne može biti prazno!</label>
+                                    </div>
+                                    <div *ngIf="agriculturistSubmitted && agriculturistForm.controls.place.errors.minlength" class="text-danger">
+                                        <label>Naziv mesta nije ispravan!</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone"><b>Kontakt telefon:</b></label>
+                                <input type="tel" formControlName="phone" id="phone" required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (agriculturistSubmitted || agriculturistForm.controls.phone.dirty || agriculturistForm.controls.phone.touched) && agriculturistForm.controls.phone.errors }">
+
+                                <div *ngIf="(agriculturistSubmitted || agriculturistForm.controls.phone.dirty || agriculturistForm.controls.phone.touched) && agriculturistForm.controls.phone.errors" class="invalid-feedback">
+                                    <div *ngIf="agriculturistForm.controls.phone.errors.required" class="text-danger">
+                                        <label>Polje ne može biti prazno!</label>
+                                    </div>
+                                    <div *ngIf="agriculturistForm.controls.phone.errors.phone" class="text-danger">
+                                        <label>Kontakt telefon nije ispravan!</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email"><b>E-mail adresa:</b></label>
+                                <input type="email" formControlName="email" id="email" required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (agriculturistSubmitted || agriculturistForm.controls.email.dirty || agriculturistForm.controls.email.touched) && agriculturistForm.controls.email.errors }">
+
+                                <div *ngIf="(agriculturistSubmitted || agriculturistForm.controls.email.dirty || agriculturistForm.controls.email.touched) && agriculturistForm.controls.email.errors" class="invalid-feedback">
+                                    <div *ngIf="agriculturistForm.controls.email.errors.required" class="text-danger">
+                                        <label>Polje ne može biti prazno!</label>
+                                    </div>
+                                    <div *ngIf="agriculturistForm.controls.email.errors.email" class="text-danger">
+                                        <label>E-mail adresa nije ispravna!</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <re-captcha (resolved)="resolved($event)" siteKey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></re-captcha>
+                            </div>
+
+                            <div *ngIf="errorMessage" class="form-group">
+                                <label class="alert alert-danger">{{errorMessage}}</label>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Nastavi</button>
+                                <a routerLink="/login" class="btn btn-link">Ulogujte se</a>
+                            </div>
+
+                        </form>
+                    </ng-template>
+
+                    <ng-template #enterprise>
+                        <form [formGroup]="enterpriseForm" (submit)="register()">
+
+                            <div class="form-group">
+                                <label for="name"><b>Pun naziv:</b></label>
+                                <input type='text' formControlName="name" id='name' required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (enterpriseSubmitted || enterpriseForm.controls.name.dirty || enterpriseForm.controls.name.touched) && enterpriseForm.controls.name.errors }">
+
+                                <div *ngIf="(enterpriseSubmitted || enterpriseForm.controls.name.dirty || enterpriseForm.controls.name.touched) && enterpriseForm.controls.name.errors" class="invalid-feedback">
+                                    <div *ngIf="enterpriseForm.controls.name.errors.required" class="text-danger">
+                                        <label>Polje ne može biti prazno!</label>
+                                    </div>
+                                    <div *ngIf="enterpriseSubmitted && enterpriseForm.controls.name.errors.minlength" class="text-danger">
+                                        <label>Naziv nije ispravan!</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="username"><b>Skraćeni naziv:</b></label>
+                                <input type='text' formControlName="username" id='username' required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (enterpriseSubmitted || enterpriseForm.controls.username.dirty || enterpriseForm.controls.username.touched) && enterpriseForm.controls.username.errors }">
+
+                                <div *ngIf="(enterpriseSubmitted || enterpriseForm.controls.username.dirty || enterpriseForm.controls.username.touched) && enterpriseForm.controls.username.errors" class="invalid-feedback">
+                                    <div *ngIf="enterpriseForm.controls.username.errors.required" class="text-danger">
+                                        <label>Polje ne može biti prazno!</label>
+                                    </div>
+                                    <div *ngIf="enterpriseSubmitted && enterpriseForm.controls.username.errors.minlength" class="text-danger">
+                                        <label>Skraćeni naziv nije ispravan!</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password"><b>Lozinka:</b></label>
+                                <input type="password" formControlName="password" id="password" required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (enterpriseSubmitted || enterpriseForm.controls.password.dirty || enterpriseForm.controls.password.touched) && enterpriseForm.controls.password.errors }">
+
+                                <div *ngIf="(enterpriseSubmitted || enterpriseForm.controls.password.dirty || enterpriseForm.controls.password.touched) && enterpriseForm.controls.password.errors" class="invalid-feedback">
+                                    <div *ngIf="enterpriseForm.controls.password.errors.required" class="text-danger">
+                                        <label>Polje ne može biti prazno!</label>
+                                    </div>
+                                    <table>
+                                        <tr *ngIf="enterpriseForm.controls.password.errors.minlength">
+                                            <td>
+                                                <label class="text-danger">Lozinka treba da ima najmanje 7 karatera!</label>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="enterpriseForm.controls.password.errors.containsNumber">
+                                            <td>
+                                                <label class="text-danger">Lozinka treba da sadrži bar jedan broj!</label>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="enterpriseForm.controls.password.errors.containsCapitalCase">
+                                            <td>
+                                                <label class="text-danger">Lozinka treba da sadrži bar jedno veliko slovo!</label>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="enterpriseForm.controls.password.errors.containsSpecialCharacters">
+                                            <td>
+                                                <label class="text-danger">Lozinka treba da sadrži bar jedan karakter!</label>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="enterpriseForm.controls.password.errors.startWithLetter">
+                                            <td>
+                                                <label class="text-danger">Lozinka treba da počinje slovom!</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="repeat"><b>Ponovite lozinku:</b></label>
+                                <input type="password" formControlName="repeat" id="repeat" required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (enterpriseForm.controls.password.dirty || enterpriseForm.controls.password.touched) && !enterpriseForm.controls.password.errors &&
+                                                                (enterpriseSubmitted || enterpriseForm.controls.repeat.dirty || enterpriseForm.controls.repeat.touched) && enterpriseForm.controls.repeat.errors }">
+
+                                <div *ngIf="(enterpriseForm.controls.password.dirty || enterpriseForm.controls.password.touched) && !enterpriseForm.controls.password.errors &&
+                                        (enterpriseSubmitted || enterpriseForm.controls.repeat.dirty || enterpriseForm.controls.repeat.touched) && enterpriseForm.controls.repeat.errors" class="invalid-feedback">
+                                    <label class="text-danger">Unete lozinke se ne poklapaju!</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="date"><b>Datum osnivanja:</b></label>
+                                <input type="date" formControlName="date" id="date" required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (enterpriseSubmitted || enterpriseForm.controls.date.dirty || enterpriseForm.controls.date.touched) && enterpriseForm.controls.date.errors }">
+
+                                <div *ngIf="(enterpriseSubmitted || enterpriseForm.controls.date.dirty || enterpriseForm.controls.date.touched) && enterpriseForm.controls.date.errors" class="invalid-feedback">
+                                    <label class="text-danger">Polje ne može biti prazno!</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="place"><b>Mesto:</b></label>
+                                <input type="text" formControlName="place" id="place" required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (enterpriseSubmitted || enterpriseForm.controls.place.dirty || enterpriseForm.controls.place.touched) && enterpriseForm.controls.place.errors }">
+
+                                <div *ngIf="(enterpriseSubmitted || enterpriseForm.controls.place.dirty || enterpriseForm.controls.place.touched) && enterpriseForm.controls.place.errors" class="invalid-feedback">
+                                    <div *ngIf="enterpriseForm.controls.place.errors.required" class="text-danger">
+                                        <label>Polje ne može biti prazno!</label>
+                                    </div>
+                                    <div *ngIf="enterpriseSubmitted && enterpriseForm.controls.place.errors.minlength" class="text-danger">
+                                        <label>Naziv mesta nije ispravan!</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email"><b>E-mail adresa:</b></label>
+                                <input type="email" formControlName="email" id="email" required class="form-control"
+                                    [ngClass]="{ 'is-invalid': (enterpriseSubmitted || enterpriseForm.controls.email.dirty || enterpriseForm.controls.email.touched) && enterpriseForm.controls.email.errors }">
+
+                                <div *ngIf="(enterpriseSubmitted || enterpriseForm.controls.email.dirty || enterpriseForm.controls.email.touched) && enterpriseForm.controls.email.errors" class="invalid-feedback">
+                                    <div *ngIf="enterpriseForm.controls.email.errors.required" class="text-danger">
+                                        <label>Polje ne može biti prazno!</label>
+                                    </div>
+                                    <div *ngIf="enterpriseForm.controls.email.errors.email" class="text-danger">
+                                        <label>E-mail adresa nije ispravna!</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <re-captcha (resolved)="resolved($event)" siteKey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></re-captcha>
+                            </div>
+
+                            <div *ngIf="errorMessage" class="form-group">
+                                <label class="alert alert-danger">{{errorMessage}}</label>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Nastavi</button>
+                                <a routerLink="/login" class="btn btn-link">Ulogujte se</a>
+                            </div>
+
+                        </form>
+                    </ng-template>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+
+                <form [formGroup]="passwordForm" (submit)="change()">
+
+                    <div *ngIf="errorMessage" class="form-group">
+                        <label class="alert alert-danger">{{errorMessage}}</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="old"><b>Stara lozinka:</b></label>
+                        <input type="password" formControlName="old" id="old" required class="form-control"
+                            [ngClass]="{ 'is-invalid': (submitted || passwordForm.controls.old.dirty || passwordForm.controls.old.touched) && passwordForm.controls.old.errors }">
+                        <div *ngIf="(submitted || passwordForm.controls.old.dirty || passwordForm.controls.old.touched) && passwordForm.controls.old.errors" class="invalid-feedback">
+                            <label class="text-danger">Polje ne može biti prazno!</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password"><b>Nova lozinka:</b></label>
+                        <input type="password" formControlName="password" id="password" required class="form-control"
+                            [ngClass]="{ 'is-invalid': (submitted || passwordForm.controls.password.dirty || passwordForm.controls.password.touched) && passwordForm.controls.password.errors }">
+
+                        <div *ngIf="(submitted || passwordForm.controls.password.dirty || passwordForm.controls.password.touched) && passwordForm.controls.password.errors" class="invalid-feedback">
+                            <div *ngIf="passwordForm.controls.password.errors.required" class="text-danger">
+                                <label>Polje ne može biti prazno!</label>
+                            </div>
+                            <table>
+                                <tr *ngIf="passwordForm.controls.password.errors.minlength">
+                                    <td>
+                                        <label class="text-danger">Lozinka treba da ima najmanje 7 karatera!</label>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="passwordForm.controls.password.errors.containsNumber">
+                                    <td>
+                                        <label class="text-danger">Lozinka treba da sadrži bar jedan broj!</label>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="passwordForm.controls.password.errors.containsCapitalCase">
+                                    <td>
+                                        <label class="text-danger">Lozinka treba da sadrži bar jedno veliko slovo!</label>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="passwordForm.controls.password.errors.containsSpecialCharacters">
+                                    <td>
+                                        <label class="text-danger">Lozinka treba da sadrži bar jedan karakter!</label>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="passwordForm.controls.password.errors.startWithLetter">
+                                    <td>
+                                        <label class="text-danger">Lozinka treba da počinje slovom!</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="repeat"><b>Ponovite lozinku:</b></label>
+                        <input type="password" formControlName="repeat" id="repeat" required class="form-control"
+                            [ngClass]="{ 'is-invalid': (passwordForm.controls.password.dirty || passwordForm.controls.password.touched) && !passwordForm.controls.password.errors &&
+                                                        (submitted || passwordForm.controls.repeat.dirty || passwordForm.controls.repeat.touched) && passwordForm.controls.repeat.errors }">
+
+                        <div *ngIf="(passwordForm.controls.password.dirty || passwordForm.controls.password.touched) && !passwordForm.controls.password.errors &&
+                                (submitted || passwordForm.controls.repeat.dirty || passwordForm.controls.repeat.touched) && passwordForm.controls.repeat.errors" class="invalid-feedback">
+                            <label class="text-danger">Unete lozinke se ne poklapaju!</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Potvrdi</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<form>
+    <br>
+    <div class="form-group form-inline">
+        &nbsp;&nbsp;
+        Pretraži: <input class="form-control ml-2" type="text" [formControl]="filter"/>
+    </div>
+</form>
+
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th scope="col">Tip</th>
+            <th scope="col" sortable="name" (sort)="onSort($event)">Naziv</th>
+            <th scope="col" sortable="manufacturer" (sort)="onSort($event)">Proizvođač</th>
+            <th scope="col" sortable="quantity" (sort)="onSort($event)">Količina</th>
+            <th scope="col">#</th>
+        </tr>
+    </thead>
+
+    <tbody *ngIf="warehouse$">
+    <tr *ngFor="let product of warehouse$ | async;">
+        <td *ngIf="product.type == 'TREE'"><b>Sadnica</b></td>
+        <td *ngIf="product.type == 'PREPARATION'"><b>Preparat</b></td>
+        <td><ngb-highlight [result]="product.name" [term]="filter.value"></ngb-highlight></td>
+        <td><ngb-highlight [result]="product.manufacturer" [term]="filter.value"></ngb-highlight></td>
+        <td><ngb-highlight [result]="product.quantity" [term]="filter.value"></ngb-highlight></td>
+        <td *ngIf="product.status"><button type="button" class="btn btn-sm btn-danger" (click)="cancle(product.status)">Otkaži</button></td>
+    </tr>
+    </tbody>
+</table>

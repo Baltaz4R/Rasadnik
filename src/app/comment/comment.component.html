@@ -1,0 +1,98 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                <h5 *ngIf="product">
+                    <table class="table text-center">
+                        <tr>
+                            <td>Tip:</td><td><b>{{ product.type }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Naziv:</td><td><b>{{ product.name }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Proizvođač:</td><td><b>{{ product.manufacturer }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Rok:</td><td><b>{{ product.days }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Cena:</td><td><b>{{ product.price }}</b></td>
+                        </tr>
+                    </table>
+                </h5>
+                <h4 *ngIf="product">
+                    <table class="table text-center">
+                        <tr>
+                            <td>Ukupna ocena: <b>{{ product.reviews }}</b></td>
+                        </tr>
+                    </table>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <br>
+    <div class="form-group form-inline">
+        &nbsp;&nbsp;
+        <h4>Komentari:</h4>
+    </div>
+</div>
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th scope="col">Ime</th>
+            <th scope="col">Prezime</th>
+            <th scope="col">Ocena</th>
+            <th scope="col">Komentar</th>
+        </tr>
+    </thead>
+
+    <tbody *ngIf="comments">
+        <tr *ngFor="let comment of comments">
+            <td>{{ comment.agriculturist.firstName }}</td>
+            <td>{{ comment.agriculturist.lastName }}</td>
+            <td>{{ comment.reviews }}</td>
+            <td><textarea type="text" class="md-textarea form-control" rows="3" columns="10">{{ comment.text }}</textarea></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+
+                <form *ngIf="commented == false && ordered" [formGroup]="commentForm" (submit)="addGarden()">
+
+                    <div class="md-form">
+                        <label for="text">Vaš komentar:</label>
+                        <textarea type="text" formControlName="text" id="text" required class="md-textarea form-control" mdbInput
+                        [ngClass]="{ 'is-invalid': (submitted || commentForm.controls.text.dirty || commentForm.controls.text.touched) && commentForm.controls.text.errors }"></textarea>
+                        <div *ngIf="(submitted || commentForm.controls.text.dirty || commentForm.controls.text.touched) && commentForm.controls.text.errors">
+                            <div *ngIf="commentForm.controls.text.errors.required" class="text-danger">
+                                <label>Polje ne može biti prazno!</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group row">
+                        <div class="col form-check"></div>
+
+                        <div class="col form-group">
+                            <button type="submit" class="btn btn-primary">Dodaj</button>
+                        </div>
+
+                        <div class="col form-check"></div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

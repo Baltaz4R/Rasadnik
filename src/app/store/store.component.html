@@ -1,0 +1,53 @@
+<form>
+    <br>
+    <div class="form-group form-inline">
+        &nbsp;&nbsp;
+        Pretraži: <input class="form-control ml-2" type="text" [formControl]="filter"/>
+    </div>
+</form>
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th scope="col">Tip</th>
+            <th scope="col" sortable="name" (sort)="onSort($event)">Naziv</th>
+            <th scope="col" sortable="manufacturer" (sort)="onSort($event)">Proizvođač</th>
+            <th scope="col" sortable="quantity" (sort)="onSort($event)">Količina</th>
+            <th scope="col" sortable="price" (sort)="onSort($event)">Cena</th>
+            <th scope="col" sortable="reviews" (sort)="onSort($event)">Ocena</th>
+            <th scope="col">#</th>
+            <th scope="col">#</th>
+        </tr>
+    </thead>
+
+    <tbody *ngIf="store$">
+    <tr *ngFor="let product of store$ | async; index as i" [ngClass]="product.quantity == 0 ? 'bg-danger' : 'bg-light'">
+        <td *ngIf="product.type == 'TREE'"><b>Sadnica</b></td>
+        <td *ngIf="product.type == 'PREPARATION'"><b>Preparat</b></td>
+        <td><ngb-highlight [result]="product.name" [term]="filter.value"></ngb-highlight></td>
+        <td><ngb-highlight [result]="product.manufacturer" [term]="filter.value"></ngb-highlight></td>
+        <td><ngb-highlight [result]="product.quantity" [term]="filter.value"></ngb-highlight></td>
+        <td><ngb-highlight [result]="product.price" [term]="filter.value"></ngb-highlight></td>
+        <td><ngb-highlight [result]="product.reviews" [term]="filter.value"></ngb-highlight></td>
+        <td *ngIf="product.quantity > 0"><input type="number" min="0" max="product.quantity" [(ngModel)]="orders[i]" (change)="sum($event)"></td>
+        <td><button type="button" class="btn btn-sm btn-info" [routerLink]="['/agriculturist/store/comment', product._id]">Detalji</button></td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<div class="form-group form-inline">
+    &nbsp;&nbsp;
+    Ukupna cena svih naručenih proizvoda: {{ price }}
+    &nbsp;&nbsp;
+    Magacin: 
+    <div *ngIf="gardens">
+        <select [(ngModel)]="selectedGarden">
+            <option *ngFor="let garden of gardens" [ngValue]="garden">{{ garden.name }}</option>
+        </select>
+    </div>
+    <div>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-sm btn-primary" (click)="order()">Naruči</button>
+    </div>
+</div>

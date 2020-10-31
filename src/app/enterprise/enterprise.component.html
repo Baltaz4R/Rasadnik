@@ -1,0 +1,65 @@
+<form>
+    <br>
+    <div class="form-group form-inline">
+        &nbsp;&nbsp;
+        Pretraži: <input class="form-control ml-2" type="text" [formControl]="filter"/>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-sm btn-info" [routerLink]="['store']"><b>Prodavnica</b></button>
+    </div>
+</form>
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th scope="col">Tip</th>
+            <th scope="col" sortable="name" (sort)="onSort($event)">Naziv</th>
+            <th scope="col" sortable="time" (sort)="onSort($event)">Datum</th>
+            <th scope="col" sortable="quantity" (sort)="onSort($event)">Količina</th>
+            <th scope="col">#</th>
+        </tr>
+    </thead>
+
+    <tbody *ngIf="orders$">
+    <tr *ngFor="let order of orders$ | async; index as i" [ngClass]="order.status == 'WAITING' ? 'bg-danger' : 'bg-light'">
+        <ng-container *ngIf="order.status == 'WAITING'">
+            <td *ngIf="order.product.type == 'TREE'"><b>Sadnica</b></td>
+            <td *ngIf="order.product.type == 'PREPARATION'"><b>Preparat</b></td>
+            <td><ngb-highlight [result]="order.product.name" [term]="filter.value"></ngb-highlight></td>
+            <td><ngb-highlight [result]="order.date" [term]="filter.value"></ngb-highlight></td>
+            <td><ngb-highlight [result]="order.quantity" [term]="filter.value"></ngb-highlight></td>
+            <td *ngIf="order.status == null">
+                <button type="button" class="btn btn-sm btn-primary" (click)="accept(order._id, order)">Prihvati</button>
+                &nbsp;
+                <button type="button" class="btn btn-sm btn-danger" (click)="cancle(order._id, order)">Otkazi</button>
+            </td>
+            <td *ngIf="order.status == 'ACCEPTED'">
+                <button type="button" class="btn btn-sm btn-success" (click)="deliver(order._id, order)">Isporuči</button>
+            </td>
+            <td *ngIf="order.status == 'WAITING'">
+                <button type="button" class="btn btn-sm btn-warning">Na čekanju!</button>
+            </td>
+        </ng-container>
+    </tr>
+
+    <tr *ngFor="let order of orders$ | async; index as i">
+        <ng-container *ngIf="order.status != 'WAITING'">
+            <td *ngIf="order.product.type == 'TREE'"><b>Sadnica</b></td>
+            <td *ngIf="order.product.type == 'PREPARATION'"><b>Preparat</b></td>
+            <td><ngb-highlight [result]="order.product.name" [term]="filter.value"></ngb-highlight></td>
+            <td><ngb-highlight [result]="order.date" [term]="filter.value"></ngb-highlight></td>
+            <td><ngb-highlight [result]="order.quantity" [term]="filter.value"></ngb-highlight></td>
+            <td *ngIf="order.status == null">
+                <button type="button" class="btn btn-sm btn-primary" (click)="accept(order._id, order)">Prihvati</button>
+                &nbsp;
+                <button type="button" class="btn btn-sm btn-danger" (click)="cancle(order._id, order)">Otkazi</button>
+            </td>
+            <td *ngIf="order.status == 'ACCEPTED'">
+                <button type="button" class="btn btn-sm btn-success" (click)="deliver(order._id, order)">Isporuči</button>
+            </td>
+            <td *ngIf="order.status == 'WAITING'">
+                <button type="button" class="btn btn-sm btn-warning">Na čekanju!</button>
+            </td>
+        </ng-container>
+    </tr>
+    </tbody>
+</table>

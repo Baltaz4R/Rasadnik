@@ -1,0 +1,40 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+
+                <form [formGroup]="loginForm" (submit)="login()">
+
+                    <div *ngIf="errorMessage" class="form-group">
+                        <label class="alert alert-danger">{{errorMessage}}</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username"><b>Korisničko ime:</b></label>
+                        <input type="text" formControlName="username" id="username" required class="form-control"
+                            [ngClass]="{ 'is-invalid': (submitted || loginForm.controls.username.dirty || loginForm.controls.username.touched) && loginForm.controls.username.errors }">
+                        <div *ngIf="(submitted || loginForm.controls.username.dirty || loginForm.controls.username.touched) && loginForm.controls.username.errors" class="invalid-feedback">
+                            <label class="text-danger">Polje ne može biti prazno!</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password"><b>Lozinka:</b></label>
+                        <input type="password" formControlName="password" id="password" required class="form-control"
+                            [ngClass]="{ 'is-invalid': (submitted || loginForm.controls.password.dirty || loginForm.controls.password.touched) && loginForm.controls.password.errors }">
+                        <div *ngIf="(submitted || loginForm.controls.password.dirty || loginForm.controls.password.touched) && loginForm.controls.password.errors" class="invalid-feedback">
+                            <label class="text-danger">Polje ne može biti prazno!</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Ulogujte se</button>
+                        <a routerLink="/register" class="btn btn-link">Registrujte se</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

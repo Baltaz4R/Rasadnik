@@ -1,0 +1,124 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+
+                <div class="col form-group">
+                    <button type="button" class="btn btn-primary btn-lg btn-block" [routerLink]="['store']">Prodavnica</button>
+                </div>
+
+                <table class="table">
+
+                    <tr class="thead-dark">
+                        <th>
+                            Naziv:
+                        </th>
+                        <th>
+                            Mesto:
+                        </th>
+                        <th>
+                            Broj zasađenih sadnica:
+                        </th>
+                        <th>
+                            Broj slobodnih mesta:
+                        </th>
+                        <th>
+                            Količina vode u rezervoaru:
+                        </th>
+                        <th>
+                            Temperatura:
+                        </th>
+                    </tr>
+
+                    <tr *ngFor="let garden of gardens">
+                        <td>
+                            <a [routerLink]="['/agriculturist/garden', garden._id]">{{garden.name}}</a>
+                        </td>
+                        <td>
+                            {{garden.place}}
+                        </td>
+                        <td class="table-data-number">
+                            {{garden.numberOfTrees}}
+                        </td>
+                        <td class="table-data-number">
+                            {{garden.numberOfFreeSpace}}
+                        </td>
+                        <td class="table-data-number">
+                            {{garden.tank}}
+                        </td>
+                        <td class="table-data-number">
+                            {{garden.temperature}}
+                        </td>
+                    </tr>
+                </table>
+
+
+                <br>
+                <br>
+
+
+                <form [formGroup]="gardenForm" (submit)="addGarden()">
+
+                    <div *ngIf="errorMessage" class="form-group">
+                        <label class="alert alert-danger">{{errorMessage}}</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name"><b>Naziv rasadnika:</b></label>
+                        <input type="text" formControlName="name" id="name" required class="form-control"
+                            [ngClass]="{ 'is-invalid': (submitted || gardenForm.controls.name.dirty || gardenForm.controls.name.touched) && gardenForm.controls.name.errors }">
+
+                        <div *ngIf="(submitted || gardenForm.controls.name.dirty || gardenForm.controls.name.touched) && gardenForm.controls.name.errors" class="invalid-feedback">
+                            <div *ngIf="gardenForm.controls.name.errors.required" class="text-danger">
+                                <label>Polje ne može biti prazno!</label>
+                            </div>
+                            <div *ngIf="submitted && gardenForm.controls.name.errors.minlength" class="text-danger">
+                                <label>Naziv nije ispravan!</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="place"><b>Mesto:</b></label>
+                        <input type="text" formControlName="place" id="place" required class="form-control"
+                            [ngClass]="{ 'is-invalid': (submitted || gardenForm.controls.place.dirty || gardenForm.controls.place.touched) && gardenForm.controls.place.errors }">
+
+                        <div *ngIf="(submitted || gardenForm.controls.place.dirty || gardenForm.controls.place.touched) && gardenForm.controls.place.errors">
+                            <div *ngIf="gardenForm.controls.place.errors.required" class="text-danger">
+                                <label>Polje ne može biti prazno!</label>
+                            </div>
+                            <div *ngIf="submitted && gardenForm.controls.place.errors.minlength" class="text-danger">
+                                <label>Naziv mesta nije ispravan!</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-group row">
+                            <label for="width" class="col-3 form-check"><b>Dimenzije:</b></label>
+                            <input type="number" formControlName="width" id="width" required class="col form-control"
+                                [ngClass]="{ 'is-invalid': (submitted || gardenForm.controls.width.dirty || gardenForm.controls.width.touched) && gardenForm.controls.width.errors }">
+
+                            <label for="height" class="col-1 form-check"><b>*</b></label>
+                            <input type="number" formControlName="height" id="height" required class="col form-control"
+                            [ngClass]="{ 'is-invalid': (submitted || gardenForm.controls.height.dirty || gardenForm.controls.height.touched) && gardenForm.controls.height.errors }">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col form-check"></div>
+
+                        <div class="col form-group">
+                            <button type="submit" class="btn btn-primary">Dodaj</button>
+                        </div>
+
+                        <div class="col form-check"></div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

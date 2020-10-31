@@ -1,0 +1,78 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-3">
+                <h4>
+                    <button type="button" class="btn btn-sm btn-info" [routerLink]="['warehouse']"><b>Magacin</b></button>
+                </h4>
+                <h4>
+                    <span *ngIf="garden" class="badge badge badge-info">Voda:  <b>{{garden.tank}}</b> L
+                        &nbsp;&nbsp;
+                        <button type="button" class="btn btn-sm btn-success" (click)="menu('tank', 'inc')">+</button>
+                        <button type="button" class="btn btn-sm btn-danger" (click)="menu('tank', 'dec')">-</button>
+                    </span>
+                </h4>
+                <h4>
+                    <span *ngIf="garden" class="badge badge badge-info">Temperatura:  <b>{{garden.temperature}}</b> <sup>o</sup>C
+                        &nbsp;&nbsp;
+                        <button type="button" class="btn btn-sm btn-success" (click)="menu('temperature', 'inc')">+</button>
+                        <button type="button" class="btn btn-sm btn-danger" (click)="menu('temperature', 'dec')">-</button>
+                    </span>
+                </h4>
+            </div>
+
+            <div class="col-9">
+                <table *ngIf="garden">
+                    <tr *ngFor="let row of garden.positions let i = index">
+                        <td *ngFor="let field of row let j = index">
+
+                            <ng-template #holeTooltipContent>
+                                <div *ngIf="garden.warehouse">
+                                    <select [(ngModel)]="selectedTree">
+                                        <ng-container *ngFor="let product of garden.warehouse">
+                                            <option *ngIf="product.type == 'TREE' && product.quantity > 0 " [ngValue]="product">{{ product.name }}</option>
+                                        </ng-container>
+                                    </select>
+                                    <br>
+                                    <br>
+                                    <button type="button" class="btn btn-sm btn-success" (click)="addTree(i, j)">Zasadi</button>
+                                </div>
+                            </ng-template>
+
+                            <ng-template #treeTooltipContent>
+                                <span *ngIf="tree">
+                                    <h6><b>{{tree.name}}</b></h6>
+                                    Proizvođač: <b>{{tree.manufacturer}}</b>
+                                    <br>
+
+                                    <p><ngb-progressbar type="success" [value]="progress" [striped]="true">{{progress}} %</ngb-progressbar></p>
+
+                                    <div *ngIf="garden.warehouse && progress < 100">
+                                        <select [(ngModel)]="selectedPreparation">
+                                            <ng-container *ngFor="let product of garden.warehouse">
+                                                <option *ngIf="product.type == 'PREPARATION' && product.quantity > 0 " [ngValue]="product">{{ product.name }}</option>
+                                            </ng-container>
+                                        </select>
+                                        <br>
+                                        <br>
+                                        <button type="button" class="btn btn-sm btn-success" (click)="addPreparation(i, j)">Preparat</button>
+                                        <br>
+                                    </div>
+
+                                    <ng-container *ngIf="progress >= 100">
+                                        <button type="button" class="btn btn-sm btn-danger" (click)="remove(i, j)">Presadi</button>
+                                    </ng-container>
+                                </span>
+                            </ng-template>
+
+                            <img *ngIf="field == null" src="assets/images/hole.png" [ngbTooltip]="holeTooltipContent" triggers="manual" #toolTip="ngbTooltip" (mouseover)="toggle(toolTip, field)" [autoClose]="'outside'" class="hole">
+                            <img *ngIf="field != null && field != false" src="assets/images/tree.png" [ngbTooltip]="treeTooltipContent" triggers="manual" #toolTip="ngbTooltip" (mouseover)="toggle(toolTip, field)" [autoClose]="'outside'">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

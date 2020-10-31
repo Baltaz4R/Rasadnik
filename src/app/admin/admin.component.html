@@ -1,0 +1,145 @@
+<div>
+    <br>
+    <div *ngIf="all == false" class="form-group form-inline">
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-primary" (click)="getAll()">Svi korisniici</button>
+    </div>
+    <div *ngIf="all" class="form-group form-inline">
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-primary" (click)="ngOnInit()">Zahtevi</button>
+    </div>
+</div>
+
+<div>
+    <br>
+    <div class="form-group form-inline">
+        &nbsp;&nbsp;
+        <h4>Poljoprivrednici:</h4>
+    </div>
+</div>
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th scope="col">Ime</th>
+            <th scope="col">Prezime</th>
+            <th scope="col">Korisničko ime</th>
+            <th scope="col">Datum rođenja</th>
+            <th scope="col">Mesto rođenja</th>
+            <th scope="col">Kontakt telefon</th>
+            <th scope="col">E-mail adresa</th>
+            <th scope="col">#</th>
+        </tr>
+    </thead>
+
+    <tbody *ngIf="agriculturists">
+    <tr *ngFor="let agriculturist of agriculturists; index as i">
+        <ng-container *ngIf="!editAgriculturists[i]">
+            <td>{{ agriculturist.firstName }}</td>
+            <td>{{ agriculturist.lastName }}</td>
+            <td>{{ agriculturist.username }}</td>
+            <td>{{ agriculturist.date }}</td>
+            <td>{{ agriculturist.place }}</td>
+            <td>{{ agriculturist.phone }}</td>
+            <td>{{ agriculturist.email }}</td>
+            <td *ngIf="all == false">
+                <button type="button" class="btn btn-sm btn-primary" (click)="accept(agriculturist._id)">Prihvati</button>
+                &nbsp;
+                <button type="button" class="btn btn-sm btn-danger" (click)="cancle(agriculturist._id)">Otkazi</button>
+            </td>
+            <td *ngIf="all && !edit()">
+                <button type="button" class="btn btn-sm btn-primary" (click)="editAgriculturists[i] = true">Izmeni</button>
+                &nbsp;
+                <button type="button" class="btn btn-sm btn-danger" (click)="deleteAgriculturists(agriculturist)">Obriši</button>
+            </td>
+        </ng-container>
+        <ng-container *ngIf="editAgriculturists[i]">
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="agriculturist.firstName">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="agriculturist.lastName">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="agriculturist.username">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="agriculturist.date">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="agriculturist.place">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="agriculturist.phone">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="agriculturist.email">
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-success" (click)="changeAgriculturists(i)">Završi</button>
+            </td>
+        </ng-container>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <br>
+    <div class="form-group form-inline">
+        &nbsp;&nbsp;
+        <h4>Preduzeća:</h4>
+    </div>
+</div>
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th scope="col">Pun naziv</th>
+            <th scope="col">Skraćeni naziv</th>
+            <th scope="col">Datum osnivanja</th>
+            <th scope="col">Mesto</th>
+            <th scope="col">E-mail adresa:</th>
+            <th scope="col">#</th>
+        </tr>
+    </thead>
+
+    <tbody *ngIf="enterprises">
+    <tr *ngFor="let enterprise of enterprises; index as i">
+        <ng-container *ngIf="!editEnterprises[i]">
+            <td>{{ enterprise.name }}</td>
+            <td>{{ enterprise.username }}</td>
+            <td>{{ enterprise.date }}</td>
+            <td>{{ enterprise.place }}</td>
+            <td>{{ enterprise.email }}</td>
+            <td *ngIf="all == false">
+                <button type="button" class="btn btn-sm btn-primary" (click)="accept(enterprise._id)">Prihvati</button>
+                &nbsp;
+                <button type="button" class="btn btn-sm btn-danger" (click)="cancle(enterprise._id)">Otkazi</button>
+            </td>
+            <td *ngIf="all && !edit()">
+                <button type="button" class="btn btn-sm btn-primary" (click)="editEnterprises[i] = true">Izmeni</button>
+                &nbsp;
+                <button type="button" class="btn btn-sm btn-danger" (click)="deleteEnterprises(enterprise)">Obriši</button>
+            </td>
+        </ng-container>
+        <ng-container *ngIf="editEnterprises[i]">
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="enterprise.name">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="enterprise.username">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="enterprise.date">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="enterprise.place">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="enterprise.email">
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-success" (click)="changeEnterprises(i)">Završi</button>
+            </td>
+        </ng-container>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,19 @@
+<div>
+    <canvas id="canvas">{{ chart }}</canvas>
+</div>
+
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th scope="col">Dan</th>
+            <th scope="col">Broj</th>
+        </tr>
+    </thead>
+
+    <tbody *ngIf="stat">
+        <tr *ngFor="let day of stat; index as i">
+            <td>{{ date[i] }}</td>
+            <td>{{ day }}</td>
+        </tr>
+        </tbody>
+</table>

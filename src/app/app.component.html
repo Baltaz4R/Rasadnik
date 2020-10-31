@@ -1,0 +1,38 @@
+<div *ngIf="!currentUser">
+  <nav class="navbar navbar-expand navbar-dark bg-primary">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink = '/'>Početna strana</a>
+      <a class="nav-item nav-link" routerLink = '/login'> Ulogujte se</a>
+      <a class="nav-item nav-link" routerLink = '/register'> Registrujte se</a>
+    </div>
+  </nav>
+</div>
+
+<div *ngIf="currentUser">
+  <nav class="navbar navbar-expand navbar-dark bg-primary">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink = '/'>Početna strana</a>
+      <a class="nav-item nav-link" routerLink="/password">Promena lozinke</a>
+      <a class="nav-item nav-link" routerLink="/login" (click)="logout()">Odjavite se</a>
+    </div>
+  </nav>
+</div>
+
+
+<router-outlet></router-outlet>
+<app-toasts></app-toasts>
+
+
+<br>
+<br>
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https://www.etf.bg.ac.rs/"> Електротехнички факултет, Универзитет у Београду</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
